@@ -1,0 +1,41 @@
+---
+- hosts: localhost
+  tasks:
+  - name: update the apt 
+    apt: 
+      upgrade: dist
+    become: yes
+  - name: install mydql-server
+    apt:
+      name: mysql-server
+      state: present
+      update_cache: yes
+    become: yes
+  - name: Adds Python Mysql support on Debian/ubuntu
+    apt: 
+       pkg: "python-mysqldb"
+       state: present
+    become: yes
+    when: ansible_os_family == 'Debian'
+
+  - name: sets the root Password
+    mysql_user: 
+       user: "root"
+       password: "password123"
+    become: yes
+
+  - name: Deletes anonymous MySql server for ansible
+    mysql_user: 
+       user: ''
+       state: absent
+    become: yes
+  - name: Ensure the mysql service is running
+    service:
+      name: mysql
+      state: started
+    become: yes
+
+
+
+    
+
