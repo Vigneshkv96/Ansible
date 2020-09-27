@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  tasks:
+  - name: update the apt
+    apt:
+      upgrade: dist
+    become: yes
+  - name: install nginx
+    apt:
+      name: nginx
+      state: present
+      update_cache: yes
+    become: yes
+  - name: Allow HTTP  firewall port for Nginx
+    ufw: 
+      rule: allow
+      port: 80
+      name: 'Nginx HTTP'
+    become: yes
+  - name: Ensure Nginx is running
+    service:
+      name: nginx
+      state: started
+    become: yes

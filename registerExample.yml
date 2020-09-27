@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  tasks:
+          # Task One Getting the Hostname and Stroing it in a varaible output
+  - name: Get the Hostname
+    # module shell
+    shell:
+            # parameter
+      cmd: hostname
+    register: output
+    # Task two display the output
+  - debug:
+          # parameter
+      var: output.stdout_lines
