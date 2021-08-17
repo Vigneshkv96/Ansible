@@ -1,2 +1,2 @@
-user=sonar
-password=sonar
+user: 'sonar'
+password: 'sonar'
